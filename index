@@ -1,0 +1,39 @@
+<?php
+$name = readline("Insert your name: ");
+$names = explode(" ", $name);
+$count = count($names);
+$surname = ' ';
+$finalName =' ';
+
+
+//Verifica se primeiro nome da Array tem menos de 13 caracteres.
+if(strlen($names[0]) > 13){
+    echo "\n Limite de caracteres atingido! \n";
+    die;
+    //Verifica o array está vázio.
+}elseif(strlen($name) == 0){
+    echo 'Please enter a valid name';
+    die;
+
+    //verifica se há mais de dois nomes informado e se a contagem dele é maior que 13 caracteres, se sim, abrevia os sobrenomes e define a variavel finalName com o primeiro nome inteiro e os demais abreviados.
+}elseif($count > 1 && strlen($name) > 13){
+    for ($i=1; $i < $count; $i++){
+        $surname .=substr($names[$i], 0, 1,).'.';
+        $finalName = $names[0].$surname;
+    }     
+    //Verifica se há mais de três nomes no Array e se a soma dos caracteres do primeiro e segundo nome e o espaço entre eles é menor do que treze caracteres, se sim, define a variavel finalName com o primeiro e segundo nome inteiros e os demais abreviados.
+}elseif($count > 2 && strlen($names[0].' '.$names[1]) < 13){
+    for ($i=2; $i < $count; $i++){
+        $surname .=substr($names[$i], 0, 1,).'.';
+        $finalName = $names[0].' '.$names[1].$surname;
+    }
+    //Verifica se há mais de dois nomes no Array e se a soma dos caracteres do primeiro e segundo nome e o espaço entre eles é menor do que treze caracteres, se sim, define a variavel finalName com o primeiro e segundo nome inteiros.
+}elseif($count > 1 && strlen($names[0].' '.$names[1]) < 13){
+    $finalName = $names[0].' '.$names[1];
+    //caso contrario, define a variavel finalName com o unico nome informado.
+}else{
+    $finalName = $names[0];
+}
+//Chama a variavel finalName, exibindo no máximo 13 caracteres.
+echo "\nYour name is: ".substr($finalName, 0, 13,)."\n";
+?>
